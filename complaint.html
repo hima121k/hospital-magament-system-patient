@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SGHMS — Grievance Redressal</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="app">
+  <div class="top-bar">
+    <a href="profile.html" class="back-btn">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5m7-7l-7 7 7 7"/></svg>
+    </a>
+    <span class="title">Grievance / Feedback</span>
+  </div>
+  
+  <div class="screen-content">
+    <div class="complaint-section">
+      <p class="text-sm text-gray mb-16">Your feedback helps us improve healthcare services. Please provide details below.</p>
+      
+      <form class="complaint-form" onsubmit="event.preventDefault(); window.location.href='profile.html';">
+        <div class="input-group">
+          <label>Category</label>
+          <select>
+            <option>Hospital Staff Behavior</option>
+            <option>Hygiene & Cleanliness</option>
+            <option>Long Wait Times</option>
+            <option>Medicine Availability</option>
+            <option>Other Feedback</option>
+          </select>
+        </div>
+        
+        <div class="input-group">
+          <label>Hospital / Clinic Name</label>
+          <input type="text" class="input-field" placeholder="e.g. AIIMS Delhi">
+        </div>
+        
+        <div class="input-group">
+          <label>Description</label>
+          <textarea class="symptom-textarea" placeholder="Please describe your experience in detail..."></textarea>
+        </div>
+        
+        <div class="input-group">
+          <label>Attachments (Optional)</label>
+          <div class="upload-area">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            Upload Photo / Document
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-full btn-lg mt-12">Submit Grievance</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SGHMS — AI Symptom Checker</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="top-bar">
+      <a href="dashboard.html" class="back-btn">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 12H5m7-7l-7 7 7 7" />
+        </svg>
+      </a>
+      <span class="title">AI Symptom Checker</span>
+    </div>
+    <div class="screen-content">
+      <div class="px-20 py-16">
+        <div class="symptom-bot mb-20">
+          <div class="symptom-bot-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path
+                d="M12 2a4 4 0 014 4v2h2a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2h2V6a4 4 0 014-4z" />
+              <circle cx="9" cy="14" r="1" fill="white" />
+              <circle cx="15" cy="14" r="1" fill="white" />
+              <path d="M9 18h6" />
+            </svg>
+          </div>
+          <div class="symptom-bot-text">
+            <h4>Hello Rahul!</h4>
+            <p>Describe your symptoms or select from the list below, and I'll suggest the right department for you.</p>
+          </div>
+        </div>
+        <div class="mb-20 stagger-item">
+          <label class="text-sm font-medium mb-8" style="display:block">Describe how you feel (Optional)</label>
+          <textarea class="symptom-textarea"
+            placeholder="E.g., I have been experiencing a mild headache and fever since yesterday..."></textarea>
+        </div>
+        <h4 class="section-title mb-12">Common Symptoms</h4>
+        <div class="symptom-chips stagger-item" id="symptom-chips">
+          <button class="symptom-chip" data-symptom="fever" onclick="toggleSymptom(this)">Fever</button>
+          <button class="symptom-chip" data-symptom="cough" onclick="toggleSymptom(this)">Cough</button>
+          <button class="symptom-chip" data-symptom="headache" onclick="toggleSymptom(this)">Headache</button>
+          <button class="symptom-chip" data-symptom="stomach" onclick="toggleSymptom(this)">Stomach Pain</button>
+          <button class="symptom-chip" data-symptom="chest" onclick="toggleSymptom(this)">Chest Pain</button>
+          <button class="symptom-chip" data-symptom="joint" onclick="toggleSymptom(this)">Joint Pain</button>
+          <button class="symptom-chip" data-symptom="skin" onclick="toggleSymptom(this)">Skin Rash</button>
+          <button class="symptom-chip" data-symptom="eye" onclick="toggleSymptom(this)">Eye Problem</button>
+          <button class="symptom-chip" data-symptom="ear" onclick="toggleSymptom(this)">Ear Pain</button>
+          <button class="symptom-chip" data-symptom="anxiety" onclick="toggleSymptom(this)">Anxiety</button>
+          <button class="symptom-chip" data-symptom="breathing" onclick="toggleSymptom(this)">Breathing Issue</button>
+          <button class="symptom-chip" data-symptom="fatigue" onclick="toggleSymptom(this)">Fatigue</button>
+        </div>
+
+        <div id="symptom-suggestion" class="symptom-suggestion" style="display:none;margin-top:24px">
+          <h4>✨ Recommended Departments</h4>
+          <div id="suggested-depts"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>

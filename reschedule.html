@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SGHMS — Reschedule Appointment</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="top-bar">
+      <a href="appointments.html" class="back-btn">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 12H5m7-7l-7 7 7 7" />
+        </svg>
+      </a>
+      <span class="title">Reschedule Appointment</span>
+    </div>
+    <div class="screen-content">
+      <div class="px-20 py-16">
+        <div class="card mb-20 stagger-item">
+          <div class="text-xs text-gray mb-4">Current Appointment</div>
+          <h4 class="text-sm font-semibold mb-4">Dr. Sunita Sharma</h4>
+          <p class="text-xs text-gray mb-8">Cardiology • Safdarjung Hospital</p>
+          <div class="flex items-center gap-8 text-xs font-semibold" style="color:var(--primary)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+            15 Sep 2026, 02:00 PM
+          </div>
+        </div>
+        <div class="tabs mb-20 stagger-item" style="animation-delay: 0.1s">
+          <div class="tab active" data-target="resched-date" onclick="switchTab(this, 'reschedule-date')">New Date</div>
+          <div class="tab" data-target="resched-time" onclick="switchTab(this, 'reschedule-time')">New Time</div>
+        </div>
+
+        <div id="resched-date">
+          <h3 class="section-title mb-12">Select New Date</h3>
+          <div class="calendar-grid">
+            <div class="calendar-day-name">Mon</div>
+            <div class="calendar-day-name">Tue</div>
+            <div class="calendar-day-name">Wed</div>
+            <div class="calendar-day-name">Thu</div>
+            <div class="calendar-day-name">Fri</div>
+            <div class="calendar-day-name">Sat</div>
+            <div class="calendar-day-name">Sun</div>
+            <div class="calendar-day disabled">31</div>
+            <div class="calendar-day disabled">01</div>
+            <div class="calendar-day disabled">02</div>
+            <div class="calendar-day disabled">03</div>
+            <div class="calendar-day disabled">04</div>
+            <div class="calendar-day disabled">05</div>
+            <div class="calendar-day disabled">06</div>
+            <div class="calendar-day disabled">07</div>
+            <div class="calendar-day disabled">08</div>
+            <div class="calendar-day disabled">09</div>
+            <div class="calendar-day disabled">10</div>
+            <div class="calendar-day disabled">11</div>
+            <div class="calendar-day disabled">12</div>
+            <div class="calendar-day disabled">13</div>
+            <div class="calendar-day disabled">14</div>
+            <div class="calendar-day today" onclick="selectDate(this)">15</div>
+            <div class="calendar-day" onclick="selectDate(this)">16</div>
+            <div class="calendar-day" onclick="selectDate(this)">17</div>
+            <div class="calendar-day selected" onclick="selectDate(this)">18</div>
+            <div class="calendar-day" onclick="selectDate(this)">19</div>
+            <div class="calendar-day" onclick="selectDate(this)">20</div>
+            <div class="calendar-day" onclick="selectDate(this)">21</div>
+            <div class="calendar-day" onclick="selectDate(this)">22</div>
+            <div class="calendar-day" onclick="selectDate(this)">23</div>
+            <div class="calendar-day" onclick="selectDate(this)">24</div>
+            <div class="calendar-day" onclick="selectDate(this)">25</div>
+            <div class="calendar-day" onclick="selectDate(this)">26</div>
+            <div class="calendar-day" onclick="selectDate(this)">27</div>
+            <div class="calendar-day" onclick="selectDate(this)">28</div>
+            <div class="calendar-day" onclick="selectDate(this)">29</div>
+            <div class="calendar-day" onclick="selectDate(this)">30</div>
+          </div>
+        </div>
+
+        <div id="resched-time" class="hidden" style="display:none">
+          <div class="time-period">
+            <h4>Afternoon</h4>
+            <div class="time-slots-grid">
+              <div class="time-slot" onclick="selectTime(this)">12:00 PM</div>
+              <div class="time-slot" onclick="selectTime(this)">12:30 PM</div>
+              <div class="time-slot selected" onclick="selectTime(this)">01:00 PM</div>
+              <div class="time-slot" onclick="selectTime(this)">02:00 PM</div>
+              <div class="time-slot" onclick="selectTime(this)">02:30 PM</div>
+              <div class="time-slot unavailable">03:00 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-20 stagger-item" style="animation-delay: 0.2s">
+          <a href="appointments.html" class="btn btn-primary btn-full btn-lg">Confirm Reschedule</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>

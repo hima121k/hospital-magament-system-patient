@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SGHMS — Nearby Hospitals</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="app">
+  <div class="top-bar">
+    <a href="dashboard.html" class="back-btn">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5m7-7l-7 7 7 7"/></svg>
+    </a>
+    <span class="title">Nearby Hospitals</span>
+  </div>
+  
+  <div class="screen-content">
+    <div class="px-20 py-16">
+      <div class="search-bar mb-16">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search hospitals or PIN code">
+      </div>
+      <div class="flex items-center justify-between mb-12">
+        <div class="text-sm font-semibold" style="color:var(--gray-800)">Showing hospitals near 110029</div>
+        <div class="text-xs font-semibold" style="color:var(--primary);cursor:pointer">Change</div>
+      </div>
+    </div>
+    
+    <div class="hospital-list">
+      <a href="book-appointment.html" class="hospital-card stagger-item" style="text-decoration:none;color:inherit;">
+        <div class="hospital-icon">🏥</div>
+        <div class="hospital-info">
+          <h4>AIIMS, New Delhi</h4>
+          <div class="flex items-center gap-8 mt-4">
+            <span class="distance">2.4 km</span>
+            <span class="type">Multi-Specialty</span>
+          </div>
+        </div>
+        <div class="hospital-badge emergency">Emergency</div>
+      </a>
+      
+      <a href="book-appointment.html" class="hospital-card stagger-item" style="animation-delay: 0.1s;text-decoration:none;color:inherit;">
+        <div class="hospital-icon">🏥</div>
+        <div class="hospital-info">
+          <h4>Safdarjung Hospital</h4>
+          <div class="flex items-center gap-8 mt-4">
+            <span class="distance">3.1 km</span>
+            <span class="type">General</span>
+          </div>
+        </div>
+        <div class="hospital-badge" style="background:#d1fae5;color:#059669">Beds Available</div>
+      </a>
+      
+      <a href="book-appointment.html" class="hospital-card stagger-item" style="animation-delay: 0.2s;text-decoration:none;color:inherit;">
+        <div class="hospital-icon">🏥</div>
+        <div class="hospital-info">
+          <h4>RML Hospital</h4>
+          <div class="flex items-center gap-8 mt-4">
+            <span class="distance">5.8 km</span>
+            <span class="type">Specialty</span>
+          </div>
+        </div>
+        <div class="hospital-badge" style="background:var(--gray-100);color:var(--gray-600)">Outpatient Only</div>
+      </a>
+    </div>
+  </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

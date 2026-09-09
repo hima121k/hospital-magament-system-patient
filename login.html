@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Login to SGHMS with Aadhaar or ABHA for secure healthcare access.">
+  <title>SGHMS — Login</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="app">
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5m7-7l-7 7 7 7"/></svg>
+    </a>
+  </div>
+  <div class="screen-content" style="padding:24px 20px">
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="this.classList.add('active');this.nextElementSibling.classList.remove('active')">Aadhaar / ABHA</button>
+      <button class="login-tab" onclick="this.classList.add('active');this.previousElementSibling.classList.remove('active')">Mobile Number</button>
+    </div>
+    <div class="login-logo-section">
+      <div class="login-aadhaar-icon">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="20" cy="14" r="7"/>
+          <path d="M8 34c0-6.6 5.4-12 12-12s12 5.4 12 12"/>
+          <circle cx="20" cy="20" r="18" stroke-dasharray="4 2"/>
+        </svg>
+      </div>
+      <h2 class="login-title">Login with Aadhaar</h2>
+      <p class="login-desc">Secure • Paperless • Trusted</p>
+    </div>
+    <div class="login-form">
+      <div class="input-group">
+        <label>Enter Aadhaar Number</label>
+        <input type="text" class="input-field" placeholder="XXXX XXXX XXXX" maxlength="14" id="aadhaar-input">
+      </div>
+      <a href="dashboard.html" class="otp-btn" style="text-align:center;display:block">Send OTP</a>
+      <div class="login-or">OR</div>
+      <a href="dashboard.html" class="abha-btn">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Login with ABHA
+      </a>
+      <div class="login-secure">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Your data is secure and encrypted
+      </div>
+    </div>
+    <div class="login-footer">
+      <div class="login-footer-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="#1a4fd6" stroke-width="2"/>
+          <text x="16" y="20" text-anchor="middle" fill="#1a4fd6" font-size="8" font-weight="700">DI</text>
+        </svg>
+        Digital India
+      </div>
+      <div class="login-footer-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="4" y="4" width="24" height="24" rx="4" stroke="#059669" stroke-width="2"/>
+          <text x="16" y="20" text-anchor="middle" fill="#059669" font-size="7" font-weight="700">ABHA</text>
+        </svg>
+        ABHA Integrated
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('aadhaar-input').addEventListener('input', function(e) {
+  let val = e.target.value.replace(/\D/g, '');
+  if (val.length > 12) val = val.slice(0, 12);
+  let formatted = '';
+  for (let i = 0; i < val.length; i++) {
+    if (i > 0 && i % 4 === 0) formatted += ' ';
+    formatted += val[i];
+  }
+  e.target.value = formatted;
+});
+</script>
+</body>
+</html>

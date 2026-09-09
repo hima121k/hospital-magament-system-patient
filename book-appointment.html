@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Book an appointment at government hospitals. AI-powered symptom checker suggests the right department.">
+  <title>SGHMS — Book Appointment</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="app">
+  <div class="top-bar" id="topbar">
+    <a href="dashboard.html" class="back-btn" id="back-btn">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5m7-7l-7 7 7 7"/></svg>
+    </a>
+    <span class="title" id="step-title">Book Appointment</span>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-steps" id="progress-bar">
+    <div class="progress-step active" id="ps1">1</div>
+    <div class="progress-line" id="pl1"></div>
+    <div class="progress-step" id="ps2">2</div>
+    <div class="progress-line" id="pl2"></div>
+    <div class="progress-step" id="ps3">3</div>
+    <div class="progress-line" id="pl3"></div>
+    <div class="progress-step" id="ps4">4</div>
+    <div class="progress-line" id="pl4"></div>
+    <div class="progress-step" id="ps5">5</div>
+  </div>
+
+  <!-- ======== STEP 1: Symptom Checker + Department Selection ======== -->
+  <div class="booking-step active" id="step-1">
+    <div class="screen-content">
+      <!-- Symptom Checker Section -->
+      <div class="px-20 mb-16">
+        <div class="symptom-bot">
+          <div class="symptom-bot-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a4 4 0 014 4v2h2a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2h2V6a4 4 0 014-4z"/><circle cx="9" cy="14" r="1" fill="white"/><circle cx="15" cy="14" r="1" fill="white"/><path d="M9 18h6"/></svg>
+          </div>
+          <div class="symptom-bot-text">
+            <h4>Not sure which department?</h4>
+            <p>Select your symptoms below and we'll suggest the right department</p>
+          </div>
+        </div>
+
+        <h4 class="section-title mb-8">Select your symptoms</h4>
+        <div class="symptom-chips" id="symptom-chips">
+          <button class="symptom-chip" data-symptom="fever" onclick="toggleSymptom(this)">Fever</button>
+          <button class="symptom-chip" data-symptom="cough" onclick="toggleSymptom(this)">Cough</button>
+          <button class="symptom-chip" data-symptom="headache" onclick="toggleSymptom(this)">Headache</button>
+          <button class="symptom-chip" data-symptom="stomach" onclick="toggleSymptom(this)">Stomach Pain</button>
+          <button class="symptom-chip" data-symptom="chest" onclick="toggleSymptom(this)">Chest Pain</button>
+          <button class="symptom-chip" data-symptom="joint" onclick="toggleSymptom(this)">Joint Pain</button>
+          <button class="symptom-chip" data-symptom="skin" onclick="toggleSymptom(this)">Skin Rash</button>
+          <button class="symptom-chip" data-symptom="eye" onclick="toggleSymptom(this)">Eye Problem</button>
+          <button class="symptom-chip" data-symptom="ear" onclick="toggleSymptom(this)">Ear Pain</button>
+          <button class="symptom-chip" data-symptom="anxiety" onclick="toggleSymptom(this)">Anxiety</button>
+          <button class="symptom-chip" data-symptom="breathing" onclick="toggleSymptom(this)">Breathing Issue</button>
+          <button class="symptom-chip" data-symptom="fatigue" onclick="toggleSymptom(this)">Fatigue</button>
+          <button class="symptom-chip" data-symptom="backpain" onclick="toggleSymptom(this)">Back Pain</button>
+          <button class="symptom-chip" data-symptom="vomiting" onclick="toggleSymptom(this)">Vomiting</button>
+          <button class="symptom-chip" data-symptom="dizziness" onclick="toggleSymptom(this)">Dizziness</button>
+          <button class="symptom-chip" data-symptom="throat" onclick="toggleSymptom(this)">Sore Throat</button>
+        </div>
+
+        <!-- AI Suggestion Area -->
+        <div id="symptom-suggestion" class="symptom-suggestion" style="display:none">
+          <h4>✨ Recommended Departments</h4>
+          <div id="suggested-depts"></div>
+        </div>
+      </div>
+
+      <div class="divider" style="margin:0 20px"></div>
+
+      <!-- Department List -->
+      <div class="px-20 py-16">
+        <h3 class="section-title">Or select a department</h3>
+        <div class="search-bar mb-16">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" placeholder="Search departments" id="dept-search" oninput="filterDepts()">
+        </div>
+      </div>
+      <div class="dept-list" id="dept-list">
+        <div class="dept-item stagger-item" data-dept="General Medicine" onclick="selectDept('General Medicine')">
+          <div class="dept-icon" style="background:#e0e7ff;color:#4f46e5"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="dept-info"><h4>General Medicine</h4><p>Consult general physicians</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Cardiology" onclick="selectDept('Cardiology')">
+          <div class="dept-icon" style="background:#ffe4e6;color:#e11d48"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+          <div class="dept-info"><h4>Cardiology</h4><p>Heart & vascular care</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Orthopedics" onclick="selectDept('Orthopedics')">
+          <div class="dept-icon" style="background:#f3f4f6;color:#4b5563"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2L2 14M22 10L10 22M15 9l-6-6a3 3 0 00-4 4l6 6M9 15l6 6a3 3 0 004-4l-6-6"/></svg></div>
+          <div class="dept-info"><h4>Orthopedics</h4><p>Bone & joint care</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Pediatrics" onclick="selectDept('Pediatrics')">
+          <div class="dept-icon" style="background:#fef3c7;color:#d97706"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0114 0v2M19 10a3 3 0 013 3M2 13a3 3 0 013-3"/></svg></div>
+          <div class="dept-info"><h4>Pediatrics</h4><p>Child healthcare</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Gynecology" onclick="selectDept('Gynecology')">
+          <div class="dept-icon" style="background:#fce7f3;color:#db2777"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="10" r="6"/><path d="M12 16v6M9 19h6"/></svg></div>
+          <div class="dept-info"><h4>Gynecology</h4><p>Women's health</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Neurology" onclick="selectDept('Neurology')">
+          <div class="dept-icon" style="background:#f4f4f5;color:#52525b"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM12 4c4.41 0 8 3.59 8 8 0 1.25-.29 2.43-.8 3.48l-2.03-3.04-1.39 1.39L17.7 17.5A7.915 7.915 0 0112 20c-4.41 0-8-3.59-8-8 0-4.41 3.59-8 8-8z"/><path d="M12 7c-2.76 0-5 2.24-5 5h2c0-1.66 1.34-3 3-3V7z"/></svg></div>
+          <div class="dept-info"><h4>Neurology</h4><p>Brain & nerve care</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="ENT" onclick="selectDept('ENT')">
+          <div class="dept-icon" style="background:#fff7ed;color:#ea580c"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 20a4 4 0 008-8V8a5 5 0 00-10 0v2H6a2 2 0 000 4h3v6z"/></svg></div>
+          <div class="dept-info"><h4>ENT</h4><p>Ear, nose & throat</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Ophthalmology" onclick="selectDept('Ophthalmology')">
+          <div class="dept-icon" style="background:#e0f2fe;color:#0284c7"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="dept-info"><h4>Ophthalmology</h4><p>Eye care</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Dermatology" onclick="selectDept('Dermatology')">
+          <div class="dept-icon" style="background:#fce7f3;color:#be185d"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM12 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM8 18h8v-2H8v2zm0-4h8v-2H8v2zm0-4h8V8H8v2z"/></svg></div>
+          <div class="dept-info"><h4>Dermatology</h4><p>Skin care</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+        <div class="dept-item stagger-item" data-dept="Psychiatry" onclick="selectDept('Psychiatry')">
+          <div class="dept-icon" style="background:#faf5ff;color:#9333ea"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div>
+          <div class="dept-info"><h4>Psychiatry</h4><p>Mental health care</p></div>
+          <div class="dept-arrow"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== STEP 2: Select Doctor ======== -->
+  <div class="booking-step" id="step-2">
+    <div class="screen-content">
+      <div class="px-20 mb-16 py-16">
+        <div class="filter-group">
+          <button class="filter-btn active" onclick="filterDoctors(this,'all')">All</button>
+          <button class="filter-btn" onclick="filterDoctors(this,'available')">Available Today</button>
+          <button class="filter-btn" onclick="filterDoctors(this,'female')">Female</button>
+          <button class="filter-btn" onclick="filterDoctors(this,'male')">Male</button>
+        </div>
+      </div>
+      <div class="doctor-list" id="doctor-list">
+        <div class="doctor-card stagger-item" data-gender="male" onclick="selectDoctor(this,'Dr. Rajesh Sharma')">
+          <div class="doctor-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="11" r="5"/><path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10"/></svg></div>
+          <div class="doctor-info"><h4>Dr. Rajesh Sharma</h4><div class="specialty">General Physician</div><div class="experience">10+ Years Exp.</div><div class="doctor-meta"><span class="availability-dot"></span><span class="availability-text">Available Today</span></div></div>
+          <div class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg><span>4.8</span></div>
+        </div>
+        <div class="doctor-card stagger-item" data-gender="female" onclick="selectDoctor(this,'Dr. Sunita Sharma')">
+          <div class="doctor-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="11" r="5"/><path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10"/></svg></div>
+          <div class="doctor-info"><h4>Dr. Sunita Sharma</h4><div class="specialty">General Physician</div><div class="experience">8+ Years Exp.</div><div class="doctor-meta"><span class="availability-dot"></span><span class="availability-text">Available Today</span></div></div>
+          <div class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg><span>4.6</span></div>
+        </div>
+        <div class="doctor-card stagger-item" data-gender="male" onclick="selectDoctor(this,'Dr. Ankit Verma')">
+          <div class="doctor-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="11" r="5"/><path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10"/></svg></div>
+          <div class="doctor-info"><h4>Dr. Ankit Verma</h4><div class="specialty">General Physician</div><div class="experience">6+ Years Exp.</div><div class="doctor-meta"><span class="availability-dot"></span><span class="availability-text">Available Today</span></div></div>
+          <div class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg><span>4.5</span></div>
+        </div>
+        <div class="doctor-card stagger-item" data-gender="female" onclick="selectDoctor(this,'Dr. Meera Gupta')">
+          <div class="doctor-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="11" r="5"/><path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10"/></svg></div>
+          <div class="doctor-info"><h4>Dr. Meera Gupta</h4><div class="specialty">General Physician</div><div class="experience">8+ Years Exp.</div><div class="doctor-meta"><span class="availability-dot"></span><span class="availability-text">Available Today</span></div></div>
+          <div class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg><span>4.7</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== STEP 3: Date & Time ======== -->
+  <div class="booking-step" id="step-3">
+    <div class="screen-content">
+      <div class="calendar-container mb-16 py-16">
+        <h3 class="section-title mb-8">Select Date</h3>
+        <div class="calendar-grid" id="calendar-grid">
+          <div class="calendar-day-name">Mon</div><div class="calendar-day-name">Tue</div><div class="calendar-day-name">Wed</div><div class="calendar-day-name">Thu</div><div class="calendar-day-name">Fri</div><div class="calendar-day-name">Sat</div><div class="calendar-day-name">Sun</div>
+          <div class="calendar-day disabled">31</div>
+          <div class="calendar-day today selected" onclick="selectDate(this)">01</div>
+          <div class="calendar-day" onclick="selectDate(this)">02</div>
+          <div class="calendar-day" onclick="selectDate(this)">03</div>
+          <div class="calendar-day" onclick="selectDate(this)">04</div>
+          <div class="calendar-day" onclick="selectDate(this)">05</div>
+          <div class="calendar-day" onclick="selectDate(this)">06</div>
+          <div class="calendar-day" onclick="selectDate(this)">07</div>
+          <div class="calendar-day" onclick="selectDate(this)">08</div>
+          <div class="calendar-day" onclick="selectDate(this)">09</div>
+          <div class="calendar-day" onclick="selectDate(this)">10</div>
+          <div class="calendar-day" onclick="selectDate(this)">11</div>
+          <div class="calendar-day" onclick="selectDate(this)">12</div>
+          <div class="calendar-day" onclick="selectDate(this)">13</div>
+          <div class="calendar-day" onclick="selectDate(this)">14</div>
+          <div class="calendar-day" onclick="selectDate(this)">15</div>
+          <div class="calendar-day" onclick="selectDate(this)">16</div>
+          <div class="calendar-day" onclick="selectDate(this)">17</div>
+          <div class="calendar-day" onclick="selectDate(this)">18</div>
+          <div class="calendar-day" onclick="selectDate(this)">19</div>
+          <div class="calendar-day" onclick="selectDate(this)">20</div>
+          <div class="calendar-day" onclick="selectDate(this)">21</div>
+          <div class="calendar-day" onclick="selectDate(this)">22</div>
+          <div class="calendar-day" onclick="selectDate(this)">23</div>
+          <div class="calendar-day" onclick="selectDate(this)">24</div>
+          <div class="calendar-day" onclick="selectDate(this)">25</div>
+          <div class="calendar-day" onclick="selectDate(this)">26</div>
+          <div class="calendar-day" onclick="selectDate(this)">27</div>
+          <div class="calendar-day" onclick="selectDate(this)">28</div>
+          <div class="calendar-day" onclick="selectDate(this)">29</div>
+          <div class="calendar-day" onclick="selectDate(this)">30</div>
+        </div>
+      </div>
+      <div class="time-slots-section">
+        <h3 class="section-title">Select Time Slot</h3>
+        <div class="time-period">
+          <h4>Morning</h4>
+          <div class="time-slots-grid">
+            <div class="time-slot" onclick="selectTime(this)">09:00 AM</div>
+            <div class="time-slot" onclick="selectTime(this)">09:30 AM</div>
+            <div class="time-slot selected" onclick="selectTime(this)">10:00 AM</div>
+            <div class="time-slot" onclick="selectTime(this)">10:30 AM</div>
+            <div class="time-slot" onclick="selectTime(this)">11:00 AM</div>
+            <div class="time-slot" onclick="selectTime(this)">11:30 AM</div>
+          </div>
+        </div>
+        <div class="time-period">
+          <h4>Afternoon</h4>
+          <div class="time-slots-grid">
+            <div class="time-slot" onclick="selectTime(this)">12:00 PM</div>
+            <div class="time-slot" onclick="selectTime(this)">12:30 PM</div>
+            <div class="time-slot" onclick="selectTime(this)">01:00 PM</div>
+            <div class="time-slot" onclick="selectTime(this)">02:00 PM</div>
+            <div class="time-slot" onclick="selectTime(this)">02:30 PM</div>
+            <div class="time-slot unavailable">03:00 PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-20 py-16">
+        <button class="btn btn-primary btn-full btn-lg" onclick="goToStep(4)">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== STEP 4: Summary ======== -->
+  <div class="booking-step" id="step-4">
+    <div class="screen-content">
+      <div class="summary-section">
+        <div class="flex items-center gap-8 mb-16">
+          <svg width="20" height="20" fill="none" stroke="var(--primary)" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+          <h3 class="section-title" style="margin-bottom:0">Appointment Details</h3>
+        </div>
+        <div class="summary-card">
+          <div class="flex items-center gap-12 mb-12">
+            <div class="doctor-avatar"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="11" r="5"/><path d="M6 28c0-5.5 4.5-10 10-10s10 4.5 10 10"/></svg></div>
+            <div>
+              <div style="font-weight:700;font-size:16px">Rahul Kumar</div>
+              <div style="font-size:12px;color:var(--gray-500)">Male • 35 Years</div>
+              <div style="font-size:11px;color:var(--gray-400)">ABHA: 1234-5678-9012</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="summary-row"><span class="summary-label">Department</span><span class="summary-value" id="s-dept">General Medicine</span></div>
+          <div class="summary-row"><span class="summary-label">Doctor</span><span class="summary-value" id="s-doctor">Dr. Rajesh Sharma</span></div>
+          <div class="summary-row"><span class="summary-label">Date</span><span class="summary-value" id="s-date">02 Sep 2026</span></div>
+          <div class="summary-row"><span class="summary-label">Time</span><span class="summary-value" id="s-time">10:00 AM</span></div>
+          <div class="summary-row"><span class="summary-label">Hospital</span><span class="summary-value">AIIMS Delhi</span></div>
+        </div>
+
+        <h3 class="section-title mt-20">Visit Type</h3>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="radio-option selected" onclick="selectVisit(this)">
+            <div class="radio-dot"></div>
+            <div>
+              <div style="font-weight:600;font-size:14px">In-Person Visit</div>
+              <div style="font-size:12px;color:var(--gray-500)">Visit hospital & consult doctor</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-20">
+          <button class="btn btn-primary btn-full btn-lg" onclick="goToStep(5)">Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== STEP 5: Confirmation ======== -->
+  <div class="booking-step" id="step-5">
+    <div class="screen-content">
+      <div class="confirmation-section">
+        <div class="success-icon">
+          <svg width="40" height="40" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2 class="confirmation-title">Appointment Confirmed!</h2>
+        <p class="confirmation-subtitle">Your appointment has been successfully booked.</p>
+        <div class="confirmation-details">
+          <div class="summary-row"><span class="summary-label">Token Number</span><span class="summary-value" style="color:var(--primary)">A-456</span></div>
+          <div class="summary-row"><span class="summary-label">Department</span><span class="summary-value" id="c-dept">General Medicine</span></div>
+          <div class="summary-row"><span class="summary-label">Doctor</span><span class="summary-value" id="c-doctor">Dr. Rajesh Sharma</span></div>
+          <div class="summary-row"><span class="summary-label">Date & Time</span><span class="summary-value" id="c-datetime">03 Sep 2026, 10:00 AM</span></div>
+          <div class="summary-row"><span class="summary-label">Hospital</span><span class="summary-value">AIIMS Delhi</span></div>
+        </div>
+        <div class="confirmation-actions">
+          <button class="btn btn-outline btn-full">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Add to Calendar
+          </button>
+          <a href="appointments.html" class="btn btn-primary btn-full">View My Appointments</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
