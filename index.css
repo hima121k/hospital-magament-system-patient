@@ -1056,7 +1056,7 @@ ul, ol { list-style: none; }
 .activity-date { font-size: 11px; color: var(--gray-400); white-space: nowrap; }
 
 /* -- Booking Flow -- */
-.booking-step { display: none; flex-direction: column; height: 100%; }
+.booking-step { display: none; flex-direction: column; flex: 1; overflow: hidden; }
 .booking-step.active { display: flex; }
 
 /* Symptom checker step in booking */

@@ -21,7 +21,7 @@
           <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
         </a>
       </div>
-      <a href="queue.html" class="queue-card">
+      <a href="queue.html" class="queue-card" id="dashboard-queue-card" style="display:none;">
         <div class="queue-card-header">Your Queue Status</div>
         <div class="queue-stats">
           <div class="queue-token">
@@ -73,19 +73,19 @@
     </div>
 
     <!-- Upcoming Appointment -->
-    <div class="dashboard-section">
+    <div class="dashboard-section" id="dashboard-upcoming-section" style="display:none;">
       <div class="dashboard-section-header">
         <h3 class="section-title">Upcoming Appointment</h3>
       </div>
       <a href="appointments.html" class="upcoming-card">
         <div class="upcoming-date">
-          <div class="day">Sep</div>
-          <div class="date-num">01</div>
+          <div class="day" id="dash-appt-month">Sep</div>
+          <div class="date-num" id="dash-appt-day">01</div>
         </div>
         <div class="upcoming-info">
-          <div class="time">10:00 AM</div>
-          <div class="doctor-name">Dr. Rajesh Sharma</div>
-          <div class="dept">General Medicine</div>
+          <div class="time" id="dash-appt-time">10:00 AM</div>
+          <div class="doctor-name" id="dash-appt-doctor">Dr. Rajesh Sharma</div>
+          <div class="dept" id="dash-appt-dept">General Medicine</div>
         </div>
         <span class="view-btn">View</span>
       </a>

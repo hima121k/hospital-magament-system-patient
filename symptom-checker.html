@@ -23,22 +23,43 @@
         <div class="symptom-bot mb-20">
           <div class="symptom-bot-icon">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path
-                d="M12 2a4 4 0 014 4v2h2a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2h2V6a4 4 0 014-4z" />
+              <path d="M12 2a4 4 0 014 4v2h2a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2h2V6a4 4 0 014-4z" />
               <circle cx="9" cy="14" r="1" fill="white" />
               <circle cx="15" cy="14" r="1" fill="white" />
               <path d="M9 18h6" />
             </svg>
           </div>
           <div class="symptom-bot-text">
-            <h4>Hello Rahul!</h4>
-            <p>Describe your symptoms or select from the list below, and I'll suggest the right department for you.</p>
+            <h4 style="color:var(--primary)">AI Health Assistant</h4>
+            <p style="font-size: 13px;">Describe your symptoms</p>
           </div>
         </div>
-        <div class="mb-20 stagger-item">
-          <label class="text-sm font-medium mb-8" style="display:block">Describe how you feel (Optional)</label>
-          <textarea class="symptom-textarea"
+
+        <div class="tabs mb-20">
+          <div class="tab active" data-target="input-text" onclick="switchTab(this, 'input-text')">Text Input</div>
+          <div class="tab" data-target="input-voice" onclick="switchTab(this, 'input-voice')">Voice Input</div>
+        </div>
+
+        <div id="input-text" class="mb-20 stagger-item">
+          <textarea id="symptom-text" class="symptom-textarea" rows="4" style="width:100%; border:1px solid #e2e8f0; border-radius:12px; padding:12px; resize:none;"
             placeholder="E.g., I have been experiencing a mild headache and fever since yesterday..."></textarea>
+        </div>
+
+        <div id="input-voice" class="mb-20 stagger-item hidden" style="display: none; flex-direction: column; align-items: center; gap: 16px;">
+          <div class="voice-mic-wrapper" id="mic-btn" onclick="toggleRecording()" style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 10px rgba(26, 79, 214, 0.1), 0 0 0 20px rgba(26, 79, 214, 0.05); cursor: pointer; transition: all 0.3s ease;">
+            <svg width="32" height="32" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 2a3 3 0 00-3 3v7a3 3 0 006 0V5a3 3 0 00-3-3z"/>
+              <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+            </svg>
+          </div>
+          <div class="text-center" style="text-align: center;">
+            <p id="mic-status" class="text-sm font-medium" style="color:var(--gray-600)">Tap mic and speak<br>to describe symptoms</p>
+          </div>
+          <select id="voice-lang" style="padding: 8px 16px; border: 1px solid var(--gray-200); border-radius: 20px; font-size: 13px; background: white; outline:none;">
+            <option value="en-US">English</option>
+            <option value="hi-IN">Hindi</option>
+          </select>
         </div>
         <h4 class="section-title mb-12">Common Symptoms</h4>
         <div class="symptom-chips stagger-item" id="symptom-chips">
@@ -56,9 +77,13 @@
           <button class="symptom-chip" data-symptom="fatigue" onclick="toggleSymptom(this)">Fatigue</button>
         </div>
 
-        <div id="symptom-suggestion" class="symptom-suggestion" style="display:none;margin-top:24px">
-          <h4>✨ Recommended Departments</h4>
-          <div id="suggested-depts"></div>
+        <div id="symptom-suggestion" class="symptom-suggestion" style="display:none;margin-top:24px; background: #eefcf3; border: 1px solid #86efac; border-radius: 12px; padding: 16px;">
+          <h4 style="color: #166534; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">✨ Recommended Departments</h4>
+          <div id="suggested-depts" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        </div>
+        
+        <div class="mt-20 stagger-item" style="margin-top: 24px;">
+          <button class="btn btn-primary btn-full" id="analyze-btn" onclick="analyzeSymptoms()">Analyze Symptoms</button>
         </div>
       </div>
     </div>
